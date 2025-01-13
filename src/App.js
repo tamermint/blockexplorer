@@ -38,7 +38,12 @@ function App() {
   return (
     <div className="App">
       Block Number: {blockNumber}
-      <div className="BlockInfo">
+      <h1>BLOCK CHECKER</h1>
+      <h2>RECENT BLOCKS</h2>
+      {/* need to make a way to get the most recent block numbers and make them clickable */}
+      <div className="block-container"></div>
+      <div className="BlockInfoForm">
+        {/* need to make this into a button so that we don't get 429 */}
         <h2>Block Information</h2>
         <p>Hash: {blockInfo.hash}</p>
         <p>Timestamp: {blockInfo.timestamp}</p>
@@ -49,6 +54,12 @@ function App() {
       <div className="TransactionInformationForm">
         <h2>Block Transaction Information</h2>
         <p>Enter the block number or hash of the block you want to inspect: </p>
+        {/* here we need to limit details we want to to bring in */}
+      </div>
+      <div className="TransactionReceiptInvestigator">
+        <h2>Transaction Receipt Information</h2>
+        <p>Enter the transaction hash you want to inspect: </p>
+        {/* here we need to limit details we want to to bring in */}
       </div>
     </div>
   );
