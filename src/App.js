@@ -26,8 +26,6 @@ function App() {
     async function getBlockNumber() {
       setBlockNumber(await alchemy.core.getBlockNumber());
     }
-
-    getBlockNumber();
   });
   useEffect(() => {
     async function getBlockInfo() {
@@ -37,30 +35,25 @@ function App() {
 
   return (
     <div className="App">
-      Block Number: {blockNumber}
       <h1>BLOCK CHECKER</h1>
-      <h2>RECENT BLOCKS</h2>
-      {/* need to make a way to get the most recent block numbers and make them clickable */}
-      <div className="block-container"></div>
-      <div className="BlockInfoForm">
-        {/* need to make this into a button so that we don't get 429 */}
-        <h2>Block Information</h2>
-        <p>Hash: {blockInfo.hash}</p>
-        <p>Timestamp: {blockInfo.timestamp}</p>
-        <p>Difficulty: {blockInfo.difficulty}</p>
-        <p>Nonce: {blockInfo.nonce}</p>
-        <p>Miner: {blockInfo.miner}</p>
+      <div className="Latest-Block">
+        {/*Get the last 6 blocks*/}
+        <button onClick={() => setBlockInfo()}>Get Latest Block</button>
       </div>
-      <div className="TransactionInformationForm">
+      {/* need to make this into a button so that we don't get 429 */}
+      <div className="Transaction-Information">
+        {/*One card for this*/}
         <h2>Block Transaction Information</h2>
         <p>Enter the block number or hash of the block you want to inspect: </p>
         {/* here we need to limit details we want to to bring in */}
       </div>
-      <div className="TransactionReceiptInvestigator">
+      <div className="Transaction-Receipt-Investigator">
+        {/*One card for this*/}
         <h2>Transaction Receipt Information</h2>
         <p>Enter the transaction hash you want to inspect: </p>
         {/* here we need to limit details we want to to bring in */}
       </div>
+      <div className="Account-Information">{/*One card for this*/}</div>
     </div>
   );
 }
