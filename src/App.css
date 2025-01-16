@@ -3,8 +3,8 @@
 }
 
 .App {
-  text-align: center;
   padding: 50px;
+  text-align: center;
 }
 
 .App-logo {
@@ -12,10 +12,7 @@
   pointer-events: none;
 }
 
-.Latest-Block,
-.Transaction-Information,
-.Transaction-Receipt-Investigator,
-.Account-Information {
+.Card {
   background-color: snow !important;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 20px;
@@ -27,6 +24,19 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+@media (max-width: 600px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns, equal width */
+  grid-gap: 20px; /* space between the cards */
+  padding: 20px; /* optional padding around the grid */
 }
 
 /* .App-header {

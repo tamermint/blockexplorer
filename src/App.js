@@ -36,24 +36,33 @@ function App() {
   return (
     <div className="App">
       <h1>BLOCK CHECKER</h1>
-      <div className="Latest-Block">
-        {/*Get the last 6 blocks*/}
-        <button onClick={() => setBlockInfo()}>Get Latest Block</button>
+      <div className="grid-container">
+        <div className="Latest-Block Card">
+          {/*Get the last 6 blocks*/}
+          <h2>Latest Block</h2>
+          <button onClick={() => setBlockInfo()}>Get Latest Block</button>
+        </div>
+        <div className="Transaction-Information Card">
+          {/*One card for this*/}
+          <h2>Block Transaction Information</h2>
+          <p>
+            Enter the block number or hash of the block you want to inspect:
+          </p>
+          <button>Query</button>
+          {/* here we need to limit details we want to to bring in */}
+        </div>
+        <div className="Transaction-Receipt-Investigator Card">
+          {/*One card for this*/}
+          <h2>Transaction Receipt Information</h2>
+          <p>Enter the transaction hash you want to inspect: </p>
+          {/* here we need to limit details we want to to bring in */}
+          <button>Query</button>
+        </div>
+        <div className="Account-Information Card">
+          <h2>Account Information</h2>
+          <button>Query</button>
+        </div>
       </div>
-      {/* need to make this into a button so that we don't get 429 */}
-      <div className="Transaction-Information">
-        {/*One card for this*/}
-        <h2>Block Transaction Information</h2>
-        <p>Enter the block number or hash of the block you want to inspect: </p>
-        {/* here we need to limit details we want to to bring in */}
-      </div>
-      <div className="Transaction-Receipt-Investigator">
-        {/*One card for this*/}
-        <h2>Transaction Receipt Information</h2>
-        <p>Enter the transaction hash you want to inspect: </p>
-        {/* here we need to limit details we want to to bring in */}
-      </div>
-      <div className="Account-Information">{/*One card for this*/}</div>
     </div>
   );
 }
