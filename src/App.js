@@ -19,19 +19,26 @@ const settings = {
 const alchemy = new Alchemy(settings);
 
 function App() {
-  const [blockNumber, setBlockNumber] = useState();
   const [blockInfo, setBlockInfo] = useState();
+  const [blockTxInfo, setBlockTxInfo] = useState();
+  const [txInfo, setTxInfo] = useState();
+  const [accountInfo, setAccountInfo] = useState();
 
-  useEffect(() => {
-    async function getBlockNumber() {
-      setBlockNumber(await alchemy.core.getBlockNumber());
-    }
-  });
-  useEffect(() => {
-    async function getBlockInfo() {
-      setBlockInfo(await alchemy.core.getBlock("latest"));
-    }
-  });
+  async function getBlockInfo() {
+    setBlockInfo(await alchemy.core.getBlock("latest"));
+  }
+
+  async function getBlockTransactionInformation() {
+    setBlockTxInfo(await alchemy.core.getBlockWithTransactions());
+  }
+
+  async function getTransactionDetail() {
+    setTxInfo(await alchemy.core.getTransactionReceipt());
+  }
+
+  async function getAccountInformation() {
+    setAccountInfo(await alchemy.core.getBalance());
+  }
 
   return (
     <div className="App">
@@ -40,15 +47,31 @@ function App() {
         <div className="Latest-Block Card">
           {/*Get the last 6 blocks*/}
           <h2>Latest Block</h2>
-          <button onClick={() => setBlockInfo()}>Get Latest Block</button>
+          <p>Block Hash: </p>
+          <p>Block Number: </p>
+          <p>Block Difficulty: </p>
+          <p>Nonce: </p>
+          <p>Block Miner: </p>
+          <p>Block Reward: </p>
+          <p>Gas Used: </p>
+          <p>Gas Limit: </p>
+          <p>Base Fee Per Gas: </p>
+          <p>Burnt Fees: </p>
+          <button onClick={getBlockInfo}>Get Latest Block</button>
         </div>
-        <div className="Transaction-Information Card">
+        <div className="Block-Transaction-Information Card">
           {/*One card for this*/}
           <h2>Block Transaction Information</h2>
+          <p>Parent Hash: </p>
+          <p>Block Number: </p>
+          <p>Logs Bloom: </p>
+          <p>Block Size: </p>
+          <p>Block Miner: </p>
+          <p>Transaction Hashes: </p>
           <p>
             Enter the block number or hash of the block you want to inspect:
           </p>
-          <button>Query</button>
+          <button onClick={getBlockTransactionInformation}>Query</button>
           {/* here we need to limit details we want to to bring in */}
         </div>
         <div className="Transaction-Receipt-Investigator Card">
@@ -56,11 +79,21 @@ function App() {
           <h2>Transaction Receipt Information</h2>
           <p>Enter the transaction hash you want to inspect: </p>
           {/* here we need to limit details we want to to bring in */}
-          <button>Query</button>
+          <p>To: </p>
+          <p>From: </p>
+          <p>Contract Address: </p>
+          <p>Transaction Hash: </p>
+          <p>Type: </p>
+          <p>Status: </p>
+          <p>Gas Used: </p>
+          <p>Gas Price: </p>
+          <button onClick={getTransactionDetail}>Query</button>
         </div>
         <div className="Account-Information Card">
           <h2>Account Information</h2>
-          <button>Query</button>
+          <p>Enter the account address you want to inspect: </p>
+          <p>Balance: </p>
+          <button onClick={getAccountInformation}>Query</button>
         </div>
       </div>
     </div>
