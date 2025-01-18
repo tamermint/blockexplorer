@@ -3,33 +3,33 @@ import { useEffect, useState } from "react";
 
 import "./App.css";
 
-// Refer to the README doc for more information about using API
-// keys in client-side code. You should never do this in production
-// level code.
 const settings = {
   apiKey: process.env.REACT_APP_ALCHEMY_API_KEY,
   network: Network.ETH_MAINNET,
 };
 
-// In this week's lessons we used ethers.js. Here we are using the
-// Alchemy SDK is an umbrella library with several different packages.
-//
-// You can read more about the packages here:
-//   https://docs.alchemy.com/reference/alchemy-sdk-api-surface-overview#api-surface
 const alchemy = new Alchemy(settings);
 
 function App() {
   const [blockInfo, setBlockInfo] = useState();
   const [blockTxInfo, setBlockTxInfo] = useState();
-  const [txInfo, setTxInfo] = useState();
-  const [accountInfo, setAccountInfo] = useState();
+  const [userBlockInput, setUserBlockInput] = useState();
+  const [txInfo, setTxInfo] = useState("");
+  const [accountInfo, setAccountInfo] = useState("");
 
   async function getBlockInfo() {
     setBlockInfo(await alchemy.core.getBlock("latest"));
   }
 
   async function getBlockTransactionInformation() {
-    setBlockTxInfo(await alchemy.core.getBlockWithTransactions());
+    try {
+      const blockData = await alchemy.core.getBlockWithTransactions(
+        userBlockInput
+      );
+      setBlockTxInfo(blockData);
+    } catch (err) {
+      console.log("Failed to fetch block data", err);
+    }
   }
 
   async function getTransactionDetail() {
@@ -47,30 +47,30 @@ function App() {
         <div className="Latest-Block Card">
           {/*Get the last 6 blocks*/}
           <h2>Latest Block</h2>
-          <p>Block Hash: </p>
-          <p>Block Number: </p>
-          <p>Block Difficulty: </p>
-          <p>Nonce: </p>
-          <p>Block Miner: </p>
-          <p>Block Reward: </p>
-          <p>Gas Used: </p>
-          <p>Gas Limit: </p>
-          <p>Base Fee Per Gas: </p>
-          <p>Burnt Fees: </p>
+          <p>Block Hash: {blockInfo?.hash}</p>
+          <p>Block Number: {blockInfo?.number}</p>
+          <p>Block Difficulty: {blockInfo?.difficulty}</p>
+          <p>Nonce: {blockInfo?.nonce}</p>
+          <p>Timestamp: {blockInfo?.timestamp}</p>
+          <p>Block Miner: {blockInfo?.miner} </p>
+          <p>Gas Used: {blockInfo?.gasUsed.toString()}</p>
+          <p>Gas Limit: {blockInfo?.gasLimit.toString()}</p>
           <button onClick={getBlockInfo}>Get Latest Block</button>
         </div>
         <div className="Block-Transaction-Information Card">
           {/*One card for this*/}
           <h2>Block Transaction Information</h2>
-          <p>Parent Hash: </p>
-          <p>Block Number: </p>
-          <p>Logs Bloom: </p>
-          <p>Block Size: </p>
-          <p>Block Miner: </p>
+          <p>Parent Hash: {blockTxInfo?.parentHash}</p>
+          <p>Block Number:{blockTxInfo?.number} </p>
+          <p>Logs Bloom: {blockTxInfo?.logsBloom}</p>
+          <p>Block Miner: {blockTxInfo?.miner}</p>
           <p>Transaction Hashes: </p>
-          <p>
-            Enter the block number or hash of the block you want to inspect:
-          </p>
+          <input
+            type="text"
+            value={userBlockInput}
+            placeholder="Enter a block number or hash"
+            onChange={(e) => setUserBlockInput(e.target.value)}
+          />
           <button onClick={getBlockTransactionInformation}>Query</button>
           {/* here we need to limit details we want to to bring in */}
         </div>
