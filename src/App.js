@@ -1,4 +1,4 @@
-import { Alchemy, Network } from "alchemy-sdk";
+import { Alchemy, Network, toHex } from "alchemy-sdk";
 import { useEffect, useState } from "react";
 
 import "./App.css";
@@ -11,10 +11,12 @@ const settings = {
 const alchemy = new Alchemy(settings);
 
 function App() {
-  const [blockInfo, setBlockInfo] = useState();
-  const [blockTxInfo, setBlockTxInfo] = useState();
-  const [userBlockInput, setUserBlockInput] = useState();
+  const [blockInfo, setBlockInfo] = useState("");
+  const [blockTxInfo, setBlockTxInfo] = useState("");
+  const [userBlockInput, setUserBlockInput] = useState("");
+  const [userTxInput, setUserTxInput] = useState("");
   const [txInfo, setTxInfo] = useState("");
+  const [userAcctInput, setUserAcctInput] = useState("");
   const [accountInfo, setAccountInfo] = useState("");
 
   async function getBlockInfo() {
@@ -33,11 +35,17 @@ function App() {
   }
 
   async function getTransactionDetail() {
-    setTxInfo(await alchemy.core.getTransactionReceipt());
+    try {
+      const txData = await alchemy.core.getTransactionReceipt(userTxInput);
+      setTxInfo(txData);
+    } catch (err) {
+      console.log("Failed to fetch transaction data", err);
+    }
   }
 
   async function getAccountInformation() {
-    setAccountInfo(await alchemy.core.getBalance());
+    const acctData = await alchemy.core.getBalance(userAcctInput, "latest");
+    setAccountInfo(acctData);
   }
 
   return (
@@ -53,8 +61,8 @@ function App() {
           <p>Nonce: {blockInfo?.nonce}</p>
           <p>Timestamp: {blockInfo?.timestamp}</p>
           <p>Block Miner: {blockInfo?.miner} </p>
-          <p>Gas Used: {blockInfo?.gasUsed.toString()}</p>
-          <p>Gas Limit: {blockInfo?.gasLimit.toString()}</p>
+          <p>Gas Used: {String(blockInfo?.gasUsed)}</p>
+          <p>Gas Limit: {String(blockInfo?.gasLimit)}</p>
           <button onClick={getBlockInfo}>Get Latest Block</button>
         </div>
         <div className="Block-Transaction-Information Card">
@@ -77,22 +85,31 @@ function App() {
         <div className="Transaction-Receipt-Investigator Card">
           {/*One card for this*/}
           <h2>Transaction Receipt Information</h2>
-          <p>Enter the transaction hash you want to inspect: </p>
           {/* here we need to limit details we want to to bring in */}
-          <p>To: </p>
-          <p>From: </p>
-          <p>Contract Address: </p>
-          <p>Transaction Hash: </p>
-          <p>Type: </p>
-          <p>Status: </p>
-          <p>Gas Used: </p>
-          <p>Gas Price: </p>
+          <p>To: {txInfo?.to}</p>
+          <p>From: {txInfo?.from} </p>
+          <p>Contract Address: {txInfo?.contractAddress || "N/A"}</p>
+          <p>Status: {String(txInfo?.status)}</p>
+          <p>Type: {String(txInfo?.type)}</p>
+          <p>Gas Used: {String(txInfo?.gasUsed)}</p>
+          <p>Gas Price: {String(txInfo?.effectiveGasPrice / 10e8)}</p>
+          <input
+            type="text"
+            value={userTxInput}
+            placeholder="Enter the Transaction hash you want to investigate"
+            onChange={(e) => setUserTxInput(e.target.value)}
+          />
           <button onClick={getTransactionDetail}>Query</button>
         </div>
         <div className="Account-Information Card">
           <h2>Account Information</h2>
-          <p>Enter the account address you want to inspect: </p>
-          <p>Balance: </p>
+          <input
+            type="text"
+            value={userAcctInput}
+            placeholder="Enter the Account address to get the balance"
+            onChange={(e) => setUserAcctInput(e.target.value)}
+          />
+          <p>Balance: {String(accountInfo) / 10e9}</p>
           <button onClick={getAccountInformation}>Query</button>
         </div>
       </div>
