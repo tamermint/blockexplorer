@@ -1,5 +1,9 @@
-:root {
-  color-scheme: light !important;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* :root {
+  color-scheme: light;
 }
 
 .App {
@@ -13,7 +17,7 @@
 }
 
 .Card {
-  background-color: snow !important;
+  background-color: snow;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 20px;
   border-radius: 5px;
@@ -34,21 +38,10 @@
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columns, equal width */
-  grid-gap: 20px; /* space between the cards */
-  padding: 20px; /* optional padding around the grid */
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+  padding: 20px;
 }
-
-/* .App-header {
-  background-color: rgb(47, 65, 101);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: black;
-} */
 
 .App-link {
   color: #61dafb;
@@ -62,3 +55,4 @@
     transform: rotate(360deg);
   }
 }
+ */

@@ -1,5 +1,5 @@
-import { Alchemy, Network, toHex } from "alchemy-sdk";
-import { useEffect, useState } from "react";
+import { Alchemy, Network } from "alchemy-sdk";
+import { useState } from "react";
 
 import "./App.css";
 
@@ -50,10 +50,9 @@ function App() {
 
   return (
     <div className="App">
-      <h1>BLOCK CHECKER</h1>
+      <h1 className="text-2xl font-bold">BLOCK CHECKER</h1>
       <div className="grid-container">
         <div className="Latest-Block Card">
-          {/*Get the last 6 blocks*/}
           <h2>Latest Block</h2>
           <p>Block Hash: {blockInfo?.hash}</p>
           <p>Block Number: {blockInfo?.number}</p>
