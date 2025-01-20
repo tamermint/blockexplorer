@@ -64,7 +64,7 @@ function App() {
           <p>Block Miner: {blockInfo?.miner} </p>
           <p>Gas Used: {String(blockInfo?.gasUsed)}</p>
           <p>Gas Limit: {String(blockInfo?.gasLimit)}</p>
-          <div className="flex flex-row justify-center grow">
+          <div className="relative flex flex-row justify-center grow">
             <button
               onClick={getBlockInfo}
               className="border-2 rounded-2xl p-2 mt-6"
@@ -83,14 +83,22 @@ function App() {
           <p>Logs Bloom: {blockTxInfo?.logsBloom}</p>
           <p>Block Miner: {blockTxInfo?.miner}</p>
           <p>Transaction Hashes: </p>
+          <label>Block Number or Hash: </label>
           <input
+            className="rounded-lg w-3/5"
             type="text"
             value={userBlockInput}
             placeholder="Enter a block number or hash"
             onChange={(e) => setUserBlockInput(e.target.value)}
           />
-          <button onClick={getBlockTransactionInformation}>Query</button>
-          {/* here we need to limit details we want to to bring in */}
+          <div className="mt-10 flex flex-col items-center">
+            <button
+              className="mt-10 py-2.5 px-10 border-2 rounded-2xl"
+              onClick={getBlockTransactionInformation}
+            >
+              Query
+            </button>
+          </div>
         </div>
         <div className="Transaction-Receipt-Investigator Card p-10 mb-8 rounded-3xl border-2 shadow-xl shadow-zinc-500/50 text-left leading-loose">
           {/*One card for this*/}
@@ -105,26 +113,44 @@ function App() {
           <p>Type: {String(txInfo?.type)}</p>
           <p>Gas Used: {String(txInfo?.gasUsed)}</p>
           <p>Gas Price: {String(txInfo?.effectiveGasPrice / 10e8)}</p>
+          <label>Transaction hash: </label>
           <input
+            className="rounded-lg w-4/6"
             type="text"
             value={userTxInput}
             placeholder="Enter the Transaction hash you want to investigate"
             onChange={(e) => setUserTxInput(e.target.value)}
           />
-          <button onClick={getTransactionDetail}>Query</button>
+          <div className="mt-4 flex flex-col items-center">
+            <button
+              className="mt-10 py-2.5 px-10 border-2 rounded-2xl"
+              onClick={getTransactionDetail}
+            >
+              Query
+            </button>
+          </div>
         </div>
-        <div className="Account-Information Card p-10 mb-8 rounded-3xl border-2 shadow-xl shadow-zinc-500/50 text-left leading-loose">
+        <div className="Account-Information Card relative p-10 mb-8 rounded-3xl border-2 shadow-xl shadow-zinc-500/50 text-left leading-loose">
           <h2 className="text-xl text-center font-bold p-2 mb-4 tracking-wider">
             Account Information
           </h2>
+          <label>Account Address or ENS name: </label>
           <input
+            className="rounded-lg w-1/2"
             type="text"
             value={userAcctInput}
             placeholder="Enter the Account address to get the balance"
             onChange={(e) => setUserAcctInput(e.target.value)}
           />
           <p>Balance: {String(accountInfo) / 10e9}</p>
-          <button onClick={getAccountInformation}>Query</button>
+          <div className="flex flex-col items-center mt-4">
+            <button
+              className="mt-10 py-2.5 px-10 border-2 rounded-2xl"
+              onClick={getAccountInformation}
+            >
+              Query
+            </button>
+          </div>
         </div>
       </div>
     </div>
