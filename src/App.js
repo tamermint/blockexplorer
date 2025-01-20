@@ -51,8 +51,8 @@ function App() {
   return (
     <div className="App dark:bg-slate-800 dark:text-white">
       <h1 className="text-5xl font-bold text-center p-10">BLOCK CHECKER</h1>
-      <div className="grid-container grid grid-cols-2 gap-20 p-20">
-        <div className="Latest-Block Card p-10 mb-8 rounded-3xl border-2 shadow-xl shadow-zinc-500/50 text-left leading-loose">
+      <div className="grid-container grid grid-cols-[800px_minmax(800px,_1fr)] gap-20 p-20 text-wrap max-w-screen-xl">
+        <div className="Latest-Block Card overflow-x-auto w-full p-10 mb-8 rounded-3xl border-2 shadow-xl shadow-zinc-500/50 text-left leading-loose">
           <h2 className="text-xl text-center font-bold p-2 mb-4 tracking-wider">
             Latest Block
           </h2>
@@ -62,8 +62,14 @@ function App() {
           <p>Nonce: {blockInfo?.nonce}</p>
           <p>Timestamp: {blockInfo?.timestamp}</p>
           <p>Block Miner: {blockInfo?.miner} </p>
-          <p>Gas Used: {String(blockInfo?.gasUsed)}</p>
-          <p>Gas Limit: {String(blockInfo?.gasLimit)}</p>
+          <p>
+            Gas Used:{" "}
+            {blockInfo?.gasUsed ? blockInfo.gasUsed.toString() : "N/A"}
+          </p>
+          <p>
+            Gas Limit:{" "}
+            {blockInfo?.gasLimit ? blockInfo.gasUsed.toString() : "N/A"}
+          </p>
           <div className="relative flex flex-row justify-center grow">
             <button
               onClick={getBlockInfo}
@@ -85,7 +91,7 @@ function App() {
           <p>Transaction Hashes: </p>
           <label>Block Number or Hash: </label>
           <input
-            className="rounded-lg w-3/5"
+            className="rounded-lg w-3/5 ml-2"
             type="text"
             value={userBlockInput}
             placeholder="Enter a block number or hash"
@@ -109,13 +115,18 @@ function App() {
           <p>To: {txInfo?.to}</p>
           <p>From: {txInfo?.from} </p>
           <p>Contract Address: {txInfo?.contractAddress || "N/A"}</p>
-          <p>Status: {String(txInfo?.status)}</p>
+          <p>Status: {txInfo?.status ? String(txInfo?.status) : "N/A"}</p>
           <p>Type: {String(txInfo?.type)}</p>
-          <p>Gas Used: {String(txInfo?.gasUsed)}</p>
-          <p>Gas Price: {String(txInfo?.effectiveGasPrice / 10e8)}</p>
+          <p>Gas Used: {txInfo?.gasUsed ? String(txInfo?.gasUsed) : "N/A"}</p>
+          <p>
+            Gas Price:{" "}
+            {txInfo?.effectiveGasPrice
+              ? String(txInfo?.effectiveGasPrice / 10e8)
+              : "N/A"}
+          </p>
           <label>Transaction hash: </label>
           <input
-            className="rounded-lg w-4/6"
+            className="rounded-lg w-4/6 ml-2"
             type="text"
             value={userTxInput}
             placeholder="Enter the Transaction hash you want to investigate"
@@ -136,7 +147,7 @@ function App() {
           </h2>
           <label>Account Address or ENS name: </label>
           <input
-            className="rounded-lg w-1/2"
+            className="rounded-lg w-1/2 ml-2"
             type="text"
             value={userAcctInput}
             placeholder="Enter the Account address to get the balance"
