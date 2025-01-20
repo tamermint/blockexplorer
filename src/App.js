@@ -49,11 +49,13 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <h1 className="text-2xl font-bold">BLOCK CHECKER</h1>
-      <div className="grid-container">
-        <div className="Latest-Block Card">
-          <h2>Latest Block</h2>
+    <div className="App dark:bg-slate-800 dark:text-white">
+      <h1 className="text-5xl font-bold text-center p-10">BLOCK CHECKER</h1>
+      <div className="grid-container grid grid-cols-2 gap-20 p-20">
+        <div className="Latest-Block Card p-10 mb-8 rounded-3xl border-2 shadow-xl shadow-zinc-500/50 text-left leading-loose">
+          <h2 className="text-xl text-center font-bold p-2 mb-4 tracking-wider">
+            Latest Block
+          </h2>
           <p>Block Hash: {blockInfo?.hash}</p>
           <p>Block Number: {blockInfo?.number}</p>
           <p>Block Difficulty: {blockInfo?.difficulty}</p>
@@ -62,11 +64,20 @@ function App() {
           <p>Block Miner: {blockInfo?.miner} </p>
           <p>Gas Used: {String(blockInfo?.gasUsed)}</p>
           <p>Gas Limit: {String(blockInfo?.gasLimit)}</p>
-          <button onClick={getBlockInfo}>Get Latest Block</button>
+          <div className="flex flex-row justify-center grow">
+            <button
+              onClick={getBlockInfo}
+              className="border-2 rounded-2xl p-2 mt-6"
+            >
+              Get Latest Block
+            </button>
+          </div>
         </div>
-        <div className="Block-Transaction-Information Card">
+        <div className="Block-Transaction-Information Card p-10 mb-8 rounded-3xl border-2 shadow-xl shadow-zinc-500/50 text-left leading-loose">
           {/*One card for this*/}
-          <h2>Block Transaction Information</h2>
+          <h2 className="text-xl text-center font-bold p-2 tracking-wider mb-4">
+            Block Transaction Information
+          </h2>
           <p>Parent Hash: {blockTxInfo?.parentHash}</p>
           <p>Block Number:{blockTxInfo?.number} </p>
           <p>Logs Bloom: {blockTxInfo?.logsBloom}</p>
@@ -81,9 +92,11 @@ function App() {
           <button onClick={getBlockTransactionInformation}>Query</button>
           {/* here we need to limit details we want to to bring in */}
         </div>
-        <div className="Transaction-Receipt-Investigator Card">
+        <div className="Transaction-Receipt-Investigator Card p-10 mb-8 rounded-3xl border-2 shadow-xl shadow-zinc-500/50 text-left leading-loose">
           {/*One card for this*/}
-          <h2>Transaction Receipt Information</h2>
+          <h2 className="text-xl text-center font-bold p-2 mb-4 tracking-wider">
+            Transaction Receipt Information
+          </h2>
           {/* here we need to limit details we want to to bring in */}
           <p>To: {txInfo?.to}</p>
           <p>From: {txInfo?.from} </p>
@@ -100,8 +113,10 @@ function App() {
           />
           <button onClick={getTransactionDetail}>Query</button>
         </div>
-        <div className="Account-Information Card">
-          <h2>Account Information</h2>
+        <div className="Account-Information Card p-10 mb-8 rounded-3xl border-2 shadow-xl shadow-zinc-500/50 text-left leading-loose">
+          <h2 className="text-xl text-center font-bold p-2 mb-4 tracking-wider">
+            Account Information
+          </h2>
           <input
             type="text"
             value={userAcctInput}

@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities
-
 /* :root {
   color-scheme: light !important;
 }
@@ -18,5 +14,5 @@ body {
     "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: white;
+  background: rgb(30, 41, 59);
 }
