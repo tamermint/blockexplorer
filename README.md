@@ -73,6 +73,15 @@ The webpage will automatically reload when you make code changes.
 
 What you'll see in the browser is Ethereum Mainnet's current block number. Not very exciting, but that's where you come in to save the day!
 
+## 3.5 Build instructions
+
+- create production build with - `npm run build` and then you need to :
+
+```zsh
+  npm install -g serve
+  serve -s build
+```
+
 ## 4. Make the blockexplorer cooler!
 
 > Feel free to do clone and implement the below ideas
