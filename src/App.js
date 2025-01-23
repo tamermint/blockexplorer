@@ -88,7 +88,6 @@ function App() {
           <p>Block Number:{blockTxInfo?.number} </p>
           <p>Logs Bloom: {blockTxInfo?.logsBloom}</p>
           <p>Block Miner: {blockTxInfo?.miner}</p>
-          <p>Transaction Hashes: </p>
           <label>Block Number or Hash: </label>
           <input
             className="rounded-lg w-3/5 ml-2"
